@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="shoplive example"
-    />
+    <meta name="description" content="shoplive example" />
     <link rel="icon" href="./favicon-32x32.png" sizes="32x32" />
     <link rel="shortcut icon" href="./favicon-32x32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./favicon-32x32.png" />
@@ -53,10 +50,9 @@
     getCampaignForOnAir().then(function (campaignsForOnair) {
       var results = '<div class="title">지금 라이브 방송중!</div>';
       if (campaignsForOnair.results.length > 0) {
+        const o = campaignsForOnair.results[0];
         results += `<div class="campaign-list">
-            ${campaignsForOnair.results.map(
-              (o) =>
-                `<div class="campaign">
+                <div class="campaign">
                 <div class="content">
                   <div class="left-side">
                     <div class="title">SHOPLIVE</div>
@@ -94,11 +90,10 @@
                 <div class="box">
                   <div class="title">${o.title}</div>
                   <div class="desc">실시간 방송 보기 &gt;</div>
-                </div>`
-            )}
+                </div>
           </div>`;
       } else {
-        results = +"<div>진행중인 방송이 없습니다</div>";
+        results = +'<div>진행중인 방송이 없습니다</div>';
       }
 
       document.querySelector("#onairCampaign").innerHTML = results;
@@ -114,10 +109,10 @@
       var results =
         '<div class="header"><div class="title">종료된 방송</div></div>';
       if (campaignsForClosed.results.length > 0) {
-        results += `<div class="body"><div class="campaign-list">
-            ${campaignsForClosed.results.map(
-              (o) =>
-                `<div class="campaign" key=${o.campaignKey}>
+        results += '<div class="body"><div class="campaign-list">';
+        {
+          for (const o of campaignsForClosed.results) {
+            results += `<div class="campaign" key=${o.campaignKey}>
                 <div class="content">
                   <div class="player">
                     <div class="info">
@@ -144,10 +139,9 @@
                     <div
                       class="background-image"
                       style="background-image: url('${o.poster2Url}');"
-                    />
+                    ></div>
                   </div>
                 </div>
-              </div>
               <div class="box">
                   <div class="title">${o.title}</div>
                   <div class="desc1">${getFormattedDate(o.startedAt)}</div>
@@ -159,11 +153,13 @@
                       ${getElapsedTime(o.startedAt, o.endedAt)}
                     </span>
                   </div>
-                </div>`
-            )}
-          </div></div>`;
+              </div>
+            </div>`
+          };
+        }
+        results += '</div></div>';
       } else {
-        results = +"<div>종료된 방송이 없습니다</div>";
+        results =+ '<div>종료된 방송이 없습니다</div>';
       }
 
       document.querySelector("#closedCamapign").innerHTML = results;

@@ -1,15 +1,13 @@
 /**
- * @param accessKey
- * 고객사 키
- * @param campaignKey
- * 캠페인 키
+ * @param accessKey 고객사 키
+ * 
  * @description
  * 전체목록 API - GET /v1/campaigns/{accessKey}
  *
  * 개별 방송 조회 API - GET /v1/campaigns/{accessKey}/{campaignKey}
  */
 var apiUrlPrefix = "https://api.shoplive.cloud/v1/campaigns";
-var accessKey = "qHrKzQu7iwuyoWmDGKgB"; // 고객사 키
+var accessKey = "JhggQMxXNyusmyX3MMJL"; // 고객사 키
 
 let page = 1; // default 1
 let pageCount = 15; // default 10
