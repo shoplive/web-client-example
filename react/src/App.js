@@ -16,7 +16,7 @@ import Hls from "hls.js";
  * 개별 방송 조회 API - GET /v1/campaigns/{accessKey}/{campaignKey}
  */
 const apiUrlPrefix = "https://api.shoplive.cloud/v1/campaigns";
-const accessKey = "qHrKzQu7iwuyoWmDGKgB"; // 고객사 키
+const accessKey = "JhggQMxXNyusmyX3MMJL"; // 고객사 키
 
 let page = 1; // default 1
 let pageCount = 15; // default 10
@@ -67,9 +67,15 @@ const App = () => {
 
       hls.loadSource(videoUrl || "");
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        video.play();
-      });
+
+      if (
+        video.getAttribute("autoplay") !== null &&
+        video.getAttribute("autoplay") !== "false"
+      ) {
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      }
     }
   };
 
@@ -225,7 +231,6 @@ const App = () => {
                       className="video"
                       src={o.replayLiveUrl} // 종료된 방송은 replayLiveUrl 사용
                       muted={true}
-                      autoPlay
                       onError={handleVideoError}
                     />
                     <div
@@ -258,12 +263,10 @@ const App = () => {
 
     return (
       <>
-      <div className="header">
-        <div className="title">종료된 방송</div>
-      </div>
-      <div className="body">
-        {result}
-      </div>
+        <div className="header">
+          <div className="title">종료된 방송</div>
+        </div>
+        <div className="body">{result}</div>
       </>
     );
   }, [campaignsForClosed]);
