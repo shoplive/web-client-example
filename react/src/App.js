@@ -163,7 +163,7 @@ const App = () => {
                     <video
                       id={`video-${o.campaignKey}`}
                       className="video"
-                      src={o.previewLiveUrl} // 미리보기 화면의 경우 고해상도가 필요가 없으므로 previeLiveUrl (320p) 사용
+                      src={o.previewLiveUrl} // 미리보기 화면의 경우 고해상도가 필요가 없으므로 previewLiveUrl (320p) 사용
                       muted={true}
                       autoPlay
                       onError={handleVideoError}
@@ -229,7 +229,7 @@ const App = () => {
                     <video
                       id={`video-${o.campaignKey}`}
                       className="video"
-                      src={o.replayLiveUrl} // 종료된 방송은 replayLiveUrl 사용
+                      src={o.previewReplayLiveUrl} // 종료된 방송은 previewReplayLiveUrl 사용
                       muted={true}
                       onError={handleVideoError}
                     />
