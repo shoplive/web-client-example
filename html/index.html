@@ -117,7 +117,7 @@
                       autoplay
                       playsinline
                       id="video-${o.campaignKey}"
-                      class="video"
+                      class="video closed-video"
                       src="${o.previewReplayLiveUrl}"
                       muted="true"
                       onerror=${this.handleVideoError}
@@ -147,10 +147,13 @@
 
       document.querySelector("#closedCamapign").innerHTML = results;
 
-      var video = document.querySelector(".closed .video");
-      video.addEventListener("error", function (e) {
-        handleVideoError(e);
-      });
+      var videos = document.getElementsByClassName("closed-video");
+      for (var _i = 0; _i < videos.length; _i++) {
+        var videoEl = videos[_i];
+        videoEl.addEventListener("error", function (e) {
+          handleVideoError(e);
+        });
+      }
     });
   </script>
 </html>
