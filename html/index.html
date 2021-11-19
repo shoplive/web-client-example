@@ -72,7 +72,7 @@
                 </div>
           </div>`;
       } else {
-        results = +"<div>진행중인 방송이 없습니다</div>";
+        results += "<div>진행중인 방송이 없습니다</div>";
       }
 
       document.querySelector("#onairCampaign").innerHTML = results;
@@ -122,7 +122,7 @@
                       muted="true"
                       onerror=${this.handleVideoError}
                     ></video>
-                    
+
                   </div>
                 </div>
               <div class="box">
@@ -142,7 +142,7 @@
         }
         results += "</div></div>";
       } else {
-        results = +"<div>종료된 방송이 없습니다</div>";
+        results += "<div>종료된 방송이 없습니다</div>";
       }
 
       document.querySelector("#closedCamapign").innerHTML = results;
