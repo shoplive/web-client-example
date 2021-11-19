@@ -226,16 +226,18 @@ const App = () => {
                         {o.adoreCount}
                       </div>
                     </div>
-                    <video
-                      id={`video-${o.campaignKey}`}
-                      className="video"
-                      src={o.previewReplayLiveUrl} // 종료된 방송은 previewReplayLiveUrl 사용
-                      muted={true}
-                      onError={handleVideoError}
-                    />
                     <div
                       className="background-image"
                       style={{ backgroundImage: `url(${o.poster2Url})` }} // 종료된 방송은 poster2Url 이미지를 영상 앞에 배치시켜서 사용
+                    />
+                    <video
+                      id={`video-${o.campaignKey}`}
+                      className="video"
+                      autoPlay
+                      playsInline
+                      src={o.previewReplayLiveUrl} // 종료된 방송은 previewReplayLiveUrl 사용
+                      muted={true}
+                      onError={handleVideoError}
                     />
                   </div>
                 </div>
