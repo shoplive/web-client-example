@@ -25,27 +25,6 @@
   </body>
 
   <script>
-    // shoplive live.js
-    (function (s, h, o, p, l, i, v, e) {
-      s["ShoplivePlayer"] = l;
-      (s[l] =
-        s[l] ||
-        function () {
-          (s[l].q = s[l].q || []).push(arguments);
-        }),
-        (i = h.createElement(o)),
-        (v = h.getElementsByTagName(o)[0]);
-      i.async = 1;
-      i.src = p;
-      v.parentNode.insertBefore(i, v);
-    })(
-      window,
-      document,
-      "script",
-      "https://static.shoplive.cloud/live.js",
-      "mplayer"
-    );
-
     // 방송상태가 ONAIR인 방송 목록 조회
     getCampaignForOnAir().then(function (campaignsForOnair) {
       var results = '<div class="title">지금 라이브 방송중!</div>';
@@ -93,7 +72,7 @@
                 </div>
           </div>`;
       } else {
-        results = +'<div>진행중인 방송이 없습니다</div>';
+        results = +"<div>진행중인 방송이 없습니다</div>";
       }
 
       document.querySelector("#onairCampaign").innerHTML = results;
@@ -129,17 +108,21 @@
                         ${o.adoreCount}
                       </div>
                     </div>
-                    <video
-                      id="video-${o.campaignKey}"
-                      class="video"
-                      src=${o.previewReplayLiveUrl}
-                      muted="true"
-                      onerror=${this.handleVideoError}
-                    ></video>
+
                     <div
                       class="background-image"
                       style="background-image: url('${o.poster2Url}');"
                     ></div>
+                    <video
+                      autoplay
+                      playsinline
+                      id="video-${o.campaignKey}"
+                      class="video"
+                      src="${o.previewReplayLiveUrl}"
+                      muted="true"
+                      onerror=${this.handleVideoError}
+                    ></video>
+                    
                   </div>
                 </div>
               <div class="box">
@@ -154,12 +137,12 @@
                     </span>
                   </div>
               </div>
-            </div>`
-          };
+            </div>`;
+          }
         }
-        results += '</div></div>';
+        results += "</div></div>";
       } else {
-        results =+ '<div>종료된 방송이 없습니다</div>';
+        results = +"<div>종료된 방송이 없습니다</div>";
       }
 
       document.querySelector("#closedCamapign").innerHTML = results;
