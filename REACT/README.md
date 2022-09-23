@@ -1,29 +1,29 @@
-# Shoplive example - React
+# Shoplive example for React
 
 
-In the project directory, you can run:
+In the project directory, please run the following commands:
 
 #### `yarn install`
 #### `yarn start`
 
-Runs the app in the development mode.\
+Run the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
-## Use ShoplivePlayer Component
+## Set configuration values
 
 ```
 const YourComponent = () => {
   const ak = "ACCESS_KEY";
   const ck = "CAMPAIGN_KEY";
-  const playerContainerId = "your-shoplive-player-container-id";
+  const SHOPLIVE_CONTAINER_ID = "your-plugin-container-id";
   const shareUrl = "YOUR_SHARE_URL";
 
   return (
     <ShoplivePlayer 
       ak={ak} 
       ck={ck} 
-      playerContainerId={playerContainerId} 
+      SHOPLIVE_CONTAINER_ID={playerContainerId} 
       shareUrl={shareUrl}
     />
   )
@@ -31,9 +31,9 @@ const YourComponent = () => {
   
 ```
 
-## Use Shoplive Plugin
+## How to run Shoplive Plugin
 
-#### 1. Import 'shoplive.js' in the <head></head> of ​​your landing page like 'index.html'
+#### 1. Import 'shoplive.js' in the &lt;head&gt;&lt;/head&gt; of your landing page like 'index.html'
 ```
 <head>
   ...
@@ -43,26 +43,26 @@ const YourComponent = () => {
 
 ```
 
-#### 2. Call init() once in your top-level component
+#### 2. Call init() at the beginning of the code before using other Shoplive funtions 
 ```
 useEffect(() => {    
   window.cloud.shoplive.init({ accessKey: 'YOUR_ACCESS_KEY' });
 }, [])
 ```
 
-#### 3. Set overall
+#### 3. Set CONTAINER_ID to embed Shoplive plugin UI and call setOverall(SHOPLIVE_CONTAINER_ID)
 
 ```
-const OVERALL_CONTAINER_ID = "your-plugin-overall-container-id"
+const SHOPLIVE_CONTAINER_ID = "your-plugin-container-id"
 
 const YourOverallComponent = () => {
   
   useEffect(() => {
-    window.cloud.shoplive.setOverall(OVERALL_CONTAINER_ID)
+    window.cloud.shoplive.setOverall(SHOPLIVE_CONTAINER_ID)
   }, [])
 
   return (
-    <div id={OVERALL_CONTAINER_ID}></div>  
+    <div id={SHOPLIVE_CONTAINER_ID}></div>  
   )
 }
 
