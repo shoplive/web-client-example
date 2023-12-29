@@ -1,61 +1,48 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ShoplivePlayer = ({ak, ck, isFullscreen, playerContainerId, shareUrl}) => {
-
+const ShoplivePlayer = ({ ak, ck, isFullscreen, playerContainerId }) => {
+  const navigate = useNavigate();
   useEffect(() => {
-
-    if(!ak || !ck) {
-      console.error('Invalid accessKey or campaignKey');
+    if (!ak || !ck) {
+      console.error("Invalid accessKey or campaignKey");
       return;
     }
-
-    (function (s, h, o, p, l, i, v, e) {
-      s["ShoplivePlayer"] = l;
-      (s[l] =
-        s[l] ||
-        function () {
-          (s[l].q = s[l].q || []).push(arguments);
-        }),
-        (i = h.createElement(o)),
-        (v = h.getElementsByTagName(o)[0]);
-      i.async = 1;
-      i.src = p;
-      v.parentNode.insertBefore(i, v);
-    })(window, document, "script", "https://static.shoplive.cloud/live.js", "mplayer");
-
-
     const messageCallback = {
       DOWNLOAD_COUPON: function (payload) {
-        alert('click coupon : ' + payload.coupon);
+        alert("click coupon : " + payload.coupon);
       },
-    }
+      ON_CLICK_CLOSE_PLAYER_MODAL: function (payload) {
+        navigate(-1);
+        cloud.shoplive.dismissLayerModalPlayer();
+      },
+    };
 
     const isContainerFit = !isFullscreen;
-    const useBackButton = isFullscreen
+    const useBackButton = isFullscreen;
     const options = {
-      messageCallback: messageCallback,
-      shareUrl: shareUrl,
-      isFullScreen: isFullscreen,
       isContainerFit: isContainerFit,
-      ui: {
-        viewerCount: true,
-        likeCount: true,
-        shareButton: true,
-        backButton: useBackButton,
-      },
+    };
+
+    window.cloud.shoplive.init({
+      accessKey: ak,
+      isSpa: true,
+      messageCallback: messageCallback,
+    });
+    if (isFullscreen) {
+      //disableHistoryHook:true makes back button to work as usual, otherwise back button remove the player while user stay on the same page
+      cloud.shoplive.showFeaturedPlayerModal({
+        campaignKey: ck,
+        disableHistoryHook: true,
+      });
+    } else {
+      cloud.shoplive.setPlayer(playerContainerId, { campaignKey: ck, options });
     }
+    return () => {};
+  }, [ak, ck, isFullscreen, playerContainerId]);
 
-    mplayer("init", ak, ck, "", options);
-    mplayer("run", playerContainerId);
-    
-  }, [ak, ck, isFullscreen, playerContainerId, shareUrl])
-
-
-  return (
-    <div id={playerContainerId} />
-  );
-}
-
+  return <div id={playerContainerId} />;
+};
 
 export default ShoplivePlayer;
