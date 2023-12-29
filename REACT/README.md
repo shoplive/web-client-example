@@ -17,14 +17,13 @@ const YourComponent = () => {
   const ak = "ACCESS_KEY";
   const ck = "CAMPAIGN_KEY";
   const SHOPLIVE_CONTAINER_ID = "your-plugin-container-id";
-  const shareUrl = "YOUR_SHARE_URL";
+
 
   return (
     <ShoplivePlayer 
       ak={ak} 
       ck={ck} 
       SHOPLIVE_CONTAINER_ID={playerContainerId} 
-      shareUrl={shareUrl}
     />
   )
 }

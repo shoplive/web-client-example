@@ -1,50 +1,51 @@
-import React from 'react'
-import ShoplivePlayer from '../shoplive/ShoplivePlayer';
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import ShoplivePlayer from "../shoplive/ShoplivePlayer";
 
-
-
-const ContainerFitExample = ({ak, ck}) => {
-
-  const playerContainerId = 'your-shoplive-player-container-id';
+const ContainerFitExample = ({ ak:propAk, ck:propCk }) => {
+  const navigate = useNavigate();
+  const playerContainerId = "your-shoplive-player-container-id";
+  const location = useLocation();
+  const { ak: stateAk, ck: stateCk } = location.state || {};
+  const ak = propAk || stateAk;
+  const ck = propCk || stateCk;
 
   const onClickFullscreenButton = () => {
-    const url = `/?ak=${ak}&ck=${ck}&viewType=fullscreen`;
-    window.open(url, "_blank", "width=360,height=700");
-  }
-
+    navigate("/fullscreen", { state: { ak, ck } });
+  };
+  const onClickPluginLink = () => {
+    navigate("/plugin", { state: { ak, ck } });
+  };
 
   return (
-    <div className='ContainerFitWrapper'>
+    <div className="ContainerFitWrapper">
       <header>
-        <div className='wrapper'>
+        <div className="wrapper">
           <h3>Shoplive - Container fit example</h3>
-          <a href='/?viewType=plugin'>Plugin example</a>
+          <button onClick={onClickPluginLink}>Plugin Example</button>
+          {/* <a onClick={onClickPluginLink}>Plugin example</a> */}
         </div>
       </header>
 
-      <main className='wrapper'>
+      <main className="wrapper">
         <h1>Shoplive Player Example</h1>
-        <section className='flexbox'>
-
-          <div className='flexbox-contents'>
+        <section className="flexbox">
+          <div className="flexbox-contents">
             <h2>Shoplive Player Example</h2>
             <p>Your contents...</p>
-            <button onClick={onClickFullscreenButton} >View on fullscreen</button>
+            <button onClick={onClickFullscreenButton}>Gn Fullscreen</button>
           </div>
-          <div className='wrap-player'>
-            <ShoplivePlayer 
-              ak={ak} 
-              ck={ck} 
-              playerContainerId={playerContainerId} 
-              shareUrl="YOUR_SHARE_URL"
-              />
+          <div className="wrap-player">
+            <ShoplivePlayer
+              ak={ak}
+              ck={ck}
+              playerContainerId={playerContainerId}
+            />
           </div>
-          
         </section>
       </main>
     </div>
-  )
-
-}
+  );
+};
 
 export default ContainerFitExample;
